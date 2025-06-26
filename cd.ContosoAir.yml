@@ -7,20 +7,21 @@ trigger:
 - none
 
 resources:
- pipelines:
-  - pipeline: buildContosoAir # identifier for the resource used in pipeline resource variables
-    source: Student1-52477409.ContosoAir # name of the pipeline that produces the artifact
-    trigger:
-     branches:
-      include:
-       - master
+  pipelines:
+    - pipeline: buildContosoAir # identifier for the resource used in pipeline resource variables
+      # source: Student1-52477409.ContosoAir # name of the pipeline that produces the artifact
+      source: kevinblind.ContosoAir # name of the pipeline that produces the artifact
+      trigger:
+        branches:
+         include:
+           - master
 
 
 pool:
   name: default
 
 steps:
-- 
+
 - task: DownloadPipelineArtifact@2
   inputs:
     buildType: 'specific'
@@ -35,7 +36,7 @@ steps:
     subscriptionId: '17ab0fba-1a3f-4ea6-aaf6-26dd7a0a705f'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'rg-lod'
-    location: 'West US 2'
+    location: 'East US'
     templateLocation: 'Linked artifact'
     csmFile: '$(Pipeline.Workspace)/drop/Templates/azuredeploy.json'
     csmParametersFile: '$(Pipeline.Workspace)/drop/Templates/azuredeploy.parameters.json'
